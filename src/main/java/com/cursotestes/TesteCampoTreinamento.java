@@ -132,11 +132,12 @@ public class TesteCampoTreinamento {
         botao.click();
 
         Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+
         driver.quit();
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void testarLinks() {
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().setSize(new Dimension(1024, 768));
@@ -147,7 +148,25 @@ public class TesteCampoTreinamento {
         // Não deixar testes incompletos passarem. Esse ainda não faz nada, então:
         // Assert.fail();
         // ou anotar com o @Ignore
-        //driver.quit();
+        Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+
+        driver.quit();
+    }
+
+    @Test
+    public void buscarTexto() {
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(1024, 768));
+        driver.manage().window().setPosition(new Point(1800, 20));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        // Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento"));
+        // Buscar a tag correta para o elemento que procura
+        // O body poderia ser muito grande
+        // Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+        Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+
+        driver.quit();
     }
 
 }
