@@ -1,6 +1,7 @@
 package com.cursotestes;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -131,6 +132,22 @@ public class TesteCampoTreinamento {
         botao.click();
 
         Assert.assertEquals("Obrigado!", botao.getAttribute("value"));
+        driver.quit();
+    }
+
+    @Test
+    @Ignore
+    public void testarLinks() {
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(1024, 768));
+        driver.manage().window().setPosition(new Point(1800, 20));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        driver.findElement(By.linkText("Voltar")).click();
+        // Não deixar testes incompletos passarem. Esse ainda não faz nada, então:
+        // Assert.fail();
+        // ou anotar com o @Ignore
+        //driver.quit();
     }
 
 }
