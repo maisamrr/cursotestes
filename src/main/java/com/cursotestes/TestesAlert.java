@@ -48,4 +48,31 @@ public class TestesAlert {
         driver.quit();
     }
 
+    @Test
+    public void testarAlertPrompt() {
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(1024, 768));
+        driver.manage().window().setPosition(new Point(1800, 20));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        driver.findElement(By.id("prompt")).click();
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals("Digite um numero", alert.getText());
+        String numero = "33";
+        alert.sendKeys(numero);
+        alert.accept();
+        Assert.assertEquals("Era " + numero +"?", alert.getText());
+        if("Era " + numero +"?" == alert.getText()) {
+            alert.accept();
+            Assert.assertEquals(":D", alert.getText());
+            alert.accept();
+        } else {
+            alert.dismiss();
+            Assert.assertEquals(":(", alert.getText());
+            alert.accept();
+        }
+
+        driver.quit();
+    }
+
 }
