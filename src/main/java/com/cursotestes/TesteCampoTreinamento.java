@@ -100,4 +100,26 @@ public class TesteCampoTreinamento {
 
         driver.quit();
     }
+
+    @Test
+    public void selecionarMultiplosDropdown() {
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(1200, 765));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        WebElement elementEsportes = driver.findElement(By.id("elementosForm:esportes"));
+        Select dropdownSelect = new Select(elementEsportes);
+        dropdownSelect.selectByVisibleText("O que eh esporte?");
+        dropdownSelect.selectByVisibleText("Karate");
+
+        List<WebElement> selectedOptions = dropdownSelect.getAllSelectedOptions();
+        Assert.assertEquals(2, selectedOptions.size());
+
+        dropdownSelect.deselectByVisibleText("O que eh esporte?");
+        dropdownSelect.deselectByVisibleText("Karate");
+        selectedOptions = dropdownSelect.getAllSelectedOptions();
+        Assert.assertEquals(0, selectedOptions.size());
+
+        driver.quit();
+    }
 }
