@@ -18,12 +18,6 @@ public class CadastroCompleto {
         return driver;
     }
 
-    private void shutWebDriver() {
-        if(driver != null) {
-            driver.quit();
-        }
-    }
-
     private void fillField(WebDriver driver, String id, String text) {
         WebElement field = driver.findElement(By.id(id));
         field.click();
@@ -57,6 +51,8 @@ public class CadastroCompleto {
         myDriver.findElement(By.id("elementosForm:cadastrar")).click();
         String resultadoCadastro = myDriver.findElement(By.id("resultado")).getText();
         Assert.assertTrue(resultadoCadastro.startsWith("Cadastrado!"));
+
+        myDriver.quit();
     }
 
 }
