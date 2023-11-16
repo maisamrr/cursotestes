@@ -49,4 +49,27 @@ public class TesteFrameEJanela {
 
         driver.quit();
     }
+
+    @Test
+    public void testarJanelaSemTitulo() {
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().setSize(new Dimension(1024, 768));
+        driver.manage().window().setPosition(new Point(1800, 20));
+        driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+
+        driver.findElement(By.id("buttonPopUpHard")).click();
+        // System.out.println(driver.getWindowHandle()); = qual a janela corrente; id da janela
+        // System.out.println(driver.getWindowHandles()); = todas as janelas que estão sendo gerenciadas
+
+        String janelaPopUpHard = (String) driver.getWindowHandles().toArray()[1];
+        driver.switchTo().window(janelaPopUpHard);
+        driver.findElement(By.tagName("textarea")).click();
+        driver.findElement(By.tagName("textarea")).sendKeys("Oi de novo");
+
+        driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
+        driver.findElement(By.tagName("textarea")).click();
+        driver.findElement(By.tagName("textarea")).sendKeys("Agora vai");
+
+        driver.quit();
+    }
 }
