@@ -1,6 +1,8 @@
 package com.cursotestes;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,40 +13,39 @@ import java.util.List;
 public class DesafioCadastro {
     private WebDriver driver;
 
-    private WebDriver initializeWebDriver() {
+    @Before
+    public void initializeWebDriver() {
         driver = new FirefoxDriver();
         driver.manage().window().setSize(new Dimension(1024, 768));
         driver.manage().window().setPosition(new Point(1800, 20));
         driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-
-        return driver;
     }
 
-    @Test
-    public void testarCampoNome() {
-        initializeWebDriver();
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
-
-        Alert alert = driver.switchTo().alert();
-        Assert.assertEquals("Nome eh obrigatorio", alert.getText());
+    @After
+    public void shutWebDriver() {
         driver.quit();
     }
 
     @Test
+    public void testarCampoNome() {
+        driver.findElement(By.id("elementosForm:cadastrar")).click();
+
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals("Nome eh obrigatorio", alert.getText());
+    }
+
+    @Test
     public void testarCampoSobrenome() {
-        initializeWebDriver();
         driver.findElement(By.id("elementosForm:nome")).click();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Joana");
         driver.findElement(By.id("elementosForm:cadastrar")).click();
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
-        driver.quit();
     }
 
     @Test
     public void testarCampoSexo() {
-        initializeWebDriver();
         driver.findElement(By.id("elementosForm:nome")).click();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Joana");
         driver.findElement(By.id("elementosForm:sobrenome")).click();
@@ -53,12 +54,10 @@ public class DesafioCadastro {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-        driver.quit();
     }
 
     @Test
     public void testarCampoCarneVeg() {
-        initializeWebDriver();
         driver.findElement(By.id("elementosForm:nome")).click();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Joana");
         driver.findElement(By.id("elementosForm:sobrenome")).click();
@@ -71,12 +70,10 @@ public class DesafioCadastro {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-        driver.quit();
     }
 
     @Test
     public void testarCampoFrangoVeg() {
-        initializeWebDriver();
         driver.findElement(By.id("elementosForm:nome")).click();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Joana");
         driver.findElement(By.id("elementosForm:sobrenome")).click();
@@ -89,12 +86,10 @@ public class DesafioCadastro {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-        driver.quit();
     }
 
     @Test
     public void testarCampoEsporte() {
-        initializeWebDriver();
         driver.findElement(By.id("elementosForm:nome")).click();
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Joana");
         driver.findElement(By.id("elementosForm:sobrenome")).click();
@@ -110,6 +105,5 @@ public class DesafioCadastro {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
-        driver.quit();
     }
 }
