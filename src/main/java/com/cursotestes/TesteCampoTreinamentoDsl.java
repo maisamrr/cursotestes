@@ -27,6 +27,7 @@ public class TesteCampoTreinamentoDsl {
     public void shutWebDriver() {
         driver.quit();
     }
+
     @Test
     public void testarTextField() {
         dsl.preencherCampo("elementosForm:nome", "Teste de escrita");
